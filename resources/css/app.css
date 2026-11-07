@@ -1,0 +1,27 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+html {
+    scroll-behavior: smooth;
+}
+
+.btn-primary {
+    @apply inline-flex items-center justify-center gap-2 rounded-xl bg-primary px-5 py-2.5 font-semibold text-white transition hover:bg-primary-dark active:scale-95 disabled:opacity-60;
+}
+
+.btn-secondary {
+    @apply inline-flex items-center justify-center gap-2 rounded-xl border border-black bg-white px-5 py-2.5 font-semibold text-black transition hover:border-primary hover:text-primary active:scale-95 dark:border-darkmuted dark:bg-ink-surface dark:text-white;
+}
+
+.card {
+    @apply rounded-2xl bg-white shadow-card transition duration-300 hover:-translate-y-1 hover:shadow-xl dark:bg-ink-surface;
+}
+
+.input {
+    @apply w-full rounded-xl border border-line bg-white px-4 py-2.5 text-black outline-none transition focus:border-primary focus:ring-2 focus:ring-primary/20 dark:border-ink-border dark:bg-ink-surface dark:text-white;
+}
+
+.skeleton {
+    @apply animate-pulse rounded-xl bg-line dark:bg-ink-border;
+}

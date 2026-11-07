@@ -1,0 +1,30 @@
+services:
+  app:
+    image: php:8.3-fpm
+    container_name: ruang-membaca-app
+    working_dir: /var/www/html
+    volumes:
+      - ./:/var/www/html
+    command: php artisan serve --host=0.0.0.0 --port=8000
+    ports:
+      - "8000:8000"
+    depends_on:
+      - mysql
+    environment:
+      DB_HOST: mysql
+      DB_DATABASE: ruang_membaca
+      DB_USERNAME: root
+      DB_PASSWORD: root
+  mysql:
+    image: mysql:8.0
+    container_name: ruang-membaca-mysql
+    restart: unless-stopped
+    environment:
+      MYSQL_ROOT_PASSWORD: root
+      MYSQL_DATABASE: ruang_membaca
+    ports:
+      - "3307:3306"
+    volumes:
+      - ruang_membaca_mysql:/var/lib/mysql
+volumes:
+  ruang_membaca_mysql:

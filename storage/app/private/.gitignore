@@ -1,0 +1,5 @@
+*
+!.gitignore
+!books/
+!books/pdf/
+!books/pdf/**
