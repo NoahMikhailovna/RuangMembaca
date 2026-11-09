@@ -212,9 +212,6 @@ export default function QuotesCarousel({ variant = 'section' }) {
         <section className="bg-soft dark:bg-ink-bg" aria-roledescription="carousel" aria-label="Quotes tokoh tentang membaca">
             <div className="mx-auto max-w-7xl px-4 py-14">
                 <div className="mb-8 text-center">
-                    <p className="mb-2 flex items-center justify-center gap-2 text-sm font-bold uppercase tracking-widest text-primary">
-                        <Quote size={16} fill="currentColor" /> Kata Tokoh
-                    </p>
                     <h2 className="text-2xl font-extrabold md:text-3xl">Quotes Tentang Membaca</h2>
                     <p className="mx-auto mt-2 max-w-xl text-muted dark:text-darkmuted">Apa kata para tokoh besar tentang buku dan membaca?</p>
                 </div>

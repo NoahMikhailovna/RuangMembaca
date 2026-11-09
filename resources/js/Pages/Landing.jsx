@@ -7,6 +7,7 @@ import {
 import DarkModeToggle from '../Components/DarkModeToggle';
 import BookCard from '../Components/BookCard';
 import QuotesCarousel from '../Components/QuotesCarousel';
+import DotBook from '../Components/DotBook';
 
 function Reveal({ children, className = '', delay = 0 }) {
     return (
@@ -105,11 +106,13 @@ export default function Landing({ featuredBooks, categories, stats }) {
                                 <div className="flex flex-col items-center lg:items-start"><TrendingUp className="text-primary" size={20} /><p className="mt-1 text-xl font-extrabold sm:text-2xl">{stats.readers}</p><p className="text-sm text-muted dark:text-darkmuted">Total Pembaca</p></div>
                             </motion.div>
                         </div>
-                        <motion.div initial={{ opacity: 0, y: 24 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 0.25, duration: 0.6 }} className="px-3 sm:px-6 lg:px-2">
-                            <QuotesCarousel variant="hero" />
+                        <motion.div initial={{ opacity: 0, y: 24 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 0.25, duration: 0.6 }} className="relative mx-auto w-full max-w-md px-3 sm:px-6 lg:max-w-none lg:px-2">
+                            <DotBook />
                         </motion.div>
                     </div>
                 </section>
+
+                <QuotesCarousel variant="section" />
 
                 <section id="fitur" className="mx-auto max-w-7xl scroll-mt-24 px-4 py-16">
                     <Reveal>
