@@ -259,7 +259,7 @@ export default function Show({ book, progress, startPage, bookmarks, notes, pdfU
                     </div>
                 </div>
 
-                <div ref={wrapRef} className={`mt-4 flex justify-center overflow-auto rounded-2xl p-4 ${night ? 'bg-black' : 'bg-soft dark:bg-ink-surface'}`}>
+                <div ref={wrapRef} className={`mt-4 flex justify-center overflow-auto rounded-2xl p-2 sm:p-4 [&_canvas]:h-auto [&_canvas]:max-w-full ${night ? 'bg-black' : 'bg-soft dark:bg-ink-surface'}`}>
                     {pdfUrl && loadError ? (
                         <div className="max-w-md py-16 text-center">
                             <p className="font-bold">PDF gagal dimuat di penampil</p>
@@ -281,7 +281,7 @@ export default function Show({ book, progress, startPage, bookmarks, notes, pdfU
                                         ref={setWrapRef(n)}
                                         data-page={n}
                                         className="relative mb-4 scroll-mt-24 bg-white shadow last:mb-0"
-                                        style={pageSize ? { width: pageSize.width * scale, height: pageSize.height * scale, maxWidth: '100%' } : { width: '100%', aspectRatio: '1 / 1.414' }}
+                                        style={pageSize ? { width: pageSize.width * scale, maxWidth: '100%', aspectRatio: `${pageSize.width} / ${pageSize.height}` } : { width: '100%', aspectRatio: '1 / 1.414' }}
                                     >
                                         <canvas ref={setCanvasRef(n)} className={night ? 'invert' : ''} style={{ display: 'block', width: '100%', height: '100%' }} />
                                         <span className="absolute bottom-2 right-3 rounded bg-black/50 px-2 py-0.5 text-xs font-semibold text-white">{n}</span>

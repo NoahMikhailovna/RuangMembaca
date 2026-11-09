@@ -43,7 +43,7 @@ export default function Home({ latestBooks, popularBooks, featuredBooks, recomme
                     <div className="mx-auto mt-10 grid max-w-2xl grid-cols-3 gap-4 text-center">
                         <div><BookOpen className="mx-auto text-primary" /><p className="mt-1 text-2xl font-extrabold">{stats.books}</p><p className="text-sm text-muted dark:text-darkmuted">Buku</p></div>
                         <div><Users className="mx-auto text-primary" /><p className="mt-1 text-2xl font-extrabold">{stats.users}</p><p className="text-sm text-muted dark:text-darkmuted">Pengguna</p></div>
-                        <div><TrendingUp className="mx-auto text-primary" /><p className="mt-1 text-2xl font-extrabold">{stats.readers}</p><p className="text-sm text-muted dark:text-darkmuted">Total Pembaca</p></div>
+                        <div><TrendingUp className="mx-auto text-primary" /><p className="mt-1 text-2xl font-extrabold">{stats.readers}</p><p className="text-sm text-muted dark:text-darkmuted">Total Dilihat</p></div>
                     </div>
                 </div>
             </section>

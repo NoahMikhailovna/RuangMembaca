@@ -9,6 +9,10 @@ use Filament\Widgets\TableWidget as BaseWidget;
 
 class PopularBooksWidget extends BaseWidget
 {
+    protected static ?int $sort = 3;
+
+    protected int|string|array $columnSpan = 'full';
+
     protected static ?string $heading = 'Buku Terpopuler';
 
     public function table(Table $table): Table
@@ -18,7 +22,7 @@ class PopularBooksWidget extends BaseWidget
             ->columns([
                 Tables\Columns\TextColumn::make('title')->label('Judul'),
                 Tables\Columns\TextColumn::make('author.name')->label('Penulis'),
-                Tables\Columns\TextColumn::make('reader_count')->label('Pembaca')->numeric(),
+                Tables\Columns\TextColumn::make('reader_count')->label('Dilihat')->numeric(),
                 Tables\Columns\TextColumn::make('download_count')->label('Unduhan')->numeric(),
             ])
             ->paginated(false);

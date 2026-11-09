@@ -65,7 +65,7 @@ export default function Index({ books, categories, filters, totalBooks }) {
                                 )}
                                 <div>
                                     <p className="font-bold">{book.title}</p>
-                                    <p className="text-sm text-muted dark:text-darkmuted">{book.author?.name} - {book.reader_count} pembaca</p>
+                                    <p className="text-sm text-muted dark:text-darkmuted">{book.author?.name} - {book.reader_count} dilihat</p>
                                     <p className="line-clamp-2 text-sm text-muted dark:text-darkmuted">{book.synopsis}</p>
                                 </div>
                             </Link>

@@ -34,7 +34,7 @@ export default function Show({ book, userState, related }) {
                         <div className="mt-3 flex items-center gap-4">
                             <StarRating book={book} value={userState?.myRating || 0} />
                             <span className="font-semibold">{book.ratings_avg_score ? Number(book.ratings_avg_score).toFixed(1) : '-'}/5</span>
-                            <span className="text-muted dark:text-darkmuted">{book.reader_count} pembaca - {book.ratings_count} rating</span>
+                            <span className="text-muted dark:text-darkmuted">{book.reader_count} dilihat - {book.ratings_count} rating</span>
                         </div>
                         <p className="mt-5 leading-relaxed text-muted dark:text-darkmuted">{book.synopsis}</p>
 

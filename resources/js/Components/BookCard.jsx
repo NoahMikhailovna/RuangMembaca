@@ -28,7 +28,7 @@ export default function BookCard({ book }) {
                     <div className="mt-2 flex items-center gap-1 text-sm">
                         <Star size={16} className="fill-primary text-primary" />
                         <span className="font-semibold">{book.ratings_avg_score ? Number(book.ratings_avg_score).toFixed(1) : '-'}</span>
-                        <span className="text-muted dark:text-darkmuted">- {book.reader_count} pembaca</span>
+                        <span className="text-muted dark:text-darkmuted">- {book.reader_count} dilihat</span>
                     </div>
                 </div>
             </Link>

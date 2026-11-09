@@ -21,3 +21,9 @@
 .skeleton {
     @apply animate-pulse rounded-xl bg-line dark:bg-ink-border;
 }
+
+/* Penjaga anti melebar ke samping di layar kecil (tidak mengganggu sticky header) */
+html,
+body {
+    overflow-x: clip;
+}

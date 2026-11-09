@@ -31,8 +31,8 @@ export default function AppLayout({ children }) {
     return (
         <div className="min-h-screen bg-white text-black transition-colors dark:bg-ink-bg dark:text-white">
             <header className="sticky top-0 z-40 border-b border-line bg-white/90 backdrop-blur dark:border-ink-border dark:bg-ink-bg/90">
-                <div className="mx-auto flex max-w-7xl items-center justify-between gap-4 px-4 py-3">
-                    <Link href={auth.user ? route('home') : route('landing')} className="flex items-center gap-2 text-xl font-extrabold">
+                <div className="mx-auto flex max-w-7xl items-center justify-between gap-2 px-4 py-3 sm:gap-4">
+                    <Link href={auth.user ? route('home') : route('landing')} className="flex shrink-0 items-center gap-2 text-lg font-extrabold sm:text-xl">
                         <span className="rounded-lg bg-primary p-1.5 text-white"><BookOpen size={20} /></span>
                         Ruang<span className="text-primary">Membaca</span>
                     </Link>
@@ -63,7 +63,7 @@ export default function AppLayout({ children }) {
                                     {auth.user.avatar ? <img src={auth.user.avatar.startsWith('http') ? auth.user.avatar : `/storage/${auth.user.avatar}`} alt={auth.user.name} className="h-9 w-9 rounded-full object-cover" /> : <span className="flex h-9 w-9 items-center justify-center rounded-full bg-primary text-sm font-extrabold uppercase text-white">{auth.user.name.charAt(0)}</span>}
                                 </Link>
                                 <Link href={route('profile.edit')} className="hidden font-semibold transition hover:text-primary sm:block">{auth.user.name}</Link>
-                                <Link href={route('logout')} method="post" as="button" className="btn-secondary !px-3 !py-1.5 text-sm">Keluar</Link>
+                                <Link href={route('logout')} method="post" as="button" className="btn-secondary !px-3 !py-1.5 text-sm max-sm:hidden">Keluar</Link>
                             </>
                         ) : (
                             <>
@@ -81,6 +81,13 @@ export default function AppLayout({ children }) {
                         ))}
                         {auth.user && <Link href={route('bookmarks.index')} className="block py-2 font-medium">Bookmark</Link>}
                         {auth.user && <Link href={route('notes.index')} className="block py-2 font-medium">Catatan</Link>}
+                        {auth.user && <Link href={route('favorites.index')} className="block py-2 font-medium">Favorit</Link>}
+                        {auth.user && <Link href={route('wishlist.index')} className="block py-2 font-medium">Wishlist</Link>}
+                        {auth.user && <Link href={route('history.index')} className="block py-2 font-medium">Riwayat</Link>}
+                        {auth.user && <Link href={route('profile.edit')} className="block py-2 font-medium">Profil</Link>}
+                        {auth.user && <Link href={route('logout')} method="post" as="button" className="block py-2 text-left font-semibold text-primary" onClick={() => setOpen(false)}>Keluar</Link>}
+                        {!auth.user && <Link href={route('login')} className="block py-2 font-medium">Masuk</Link>}
+                        {!auth.user && <Link href={route('register')} className="block py-2 font-medium">Daftar</Link>}
                     </nav>
                 )}
             </header>

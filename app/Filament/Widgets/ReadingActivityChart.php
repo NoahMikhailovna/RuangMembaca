@@ -7,6 +7,10 @@ use Filament\Widgets\ChartWidget;
 
 class ReadingActivityChart extends ChartWidget
 {
+    protected static ?int $sort = 2;
+
+    protected int|string|array $columnSpan = 'full';
+
     protected ?string $heading = 'Aktivitas Membaca 14 Hari Terakhir';
 
     protected function getData(): array

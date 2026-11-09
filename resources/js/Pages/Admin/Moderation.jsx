@@ -36,7 +36,7 @@ export default function Moderation({ comments, reviews, stats }) {
                 <h1 className="text-3xl font-extrabold">Moderasi Komentar dan Ulasan</h1>
                 <p className="mt-1 text-muted dark:text-darkmuted">CRUD lengkap buku, kategori, penulis, dan pengguna tersedia di dashboard Filament: <a href="/admin" className="font-semibold text-primary">/admin</a></p>
                 <div className="mt-8 grid grid-cols-2 gap-4 md:grid-cols-4">
-                    {[['Total Buku', stats.books], ['Total Pengguna', stats.users], ['Total Pembaca', stats.readers], ['Buku Terpopuler', stats.popularBooks?.[0]?.title || '-']].map(([label, value]) => (
+                    {[['Total Buku', stats.books], ['Total Pengguna', stats.users], ['Total Dilihat', stats.readers], ['Buku Terpopuler', stats.popularBooks?.[0]?.title || '-']].map(([label, value]) => (
                         <div key={label} className="card p-5">
                             <p className="text-sm text-muted dark:text-darkmuted">{label}</p>
                             <p className="mt-1 line-clamp-1 text-2xl font-extrabold">{value}</p>

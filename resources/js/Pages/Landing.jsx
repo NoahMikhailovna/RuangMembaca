@@ -47,8 +47,8 @@ export default function Landing({ featuredBooks, categories, stats }) {
             <Head title="Ruang Membaca - Perpustakaan Digital" />
 
             <header className="sticky top-0 z-40 border-b border-line bg-white/90 backdrop-blur dark:border-ink-border dark:bg-ink-bg/90">
-                <div className="mx-auto flex max-w-7xl items-center justify-between gap-4 px-4 py-3">
-                    <Link href={route('landing')} className="flex items-center gap-2 text-xl font-extrabold">
+                <div className="mx-auto flex max-w-7xl items-center justify-between gap-2 px-4 py-3 sm:gap-4">
+                    <Link href={route('landing')} className="flex shrink-0 items-center gap-2 text-lg font-extrabold sm:text-xl">
                         <span className="rounded-lg bg-primary p-1.5 text-white"><BookOpen size={20} /></span>
                         Ruang<span className="text-primary">Membaca</span>
                     </Link>
@@ -59,9 +59,9 @@ export default function Landing({ featuredBooks, categories, stats }) {
                     </nav>
                     <div className="flex items-center gap-1">
                         <DarkModeToggle />
-                        {!isLoggedIn && <Link href={route('login')} className="btn-secondary !px-3 !py-1.5 text-sm">Masuk</Link>}
-                        <Link href={route('home')} className="btn-primary !px-3 !py-1.5 text-sm">
-                            {isLoggedIn ? 'Ke Beranda' : 'Mulai Membaca'}
+                        {!isLoggedIn && <Link href={route('login')} className="btn-secondary whitespace-nowrap !px-3 !py-1.5 text-sm">Masuk</Link>}
+                        <Link href={route('home')} className="btn-primary whitespace-nowrap !px-3 !py-1.5 text-sm">
+                            {isLoggedIn ? 'Ke Beranda' : (<><span className="sm:hidden">Mulai</span><span className="hidden sm:inline">Mulai Membaca</span></>)}
                         </Link>
                     </div>
                 </div>
@@ -103,7 +103,7 @@ export default function Landing({ featuredBooks, categories, stats }) {
                                 <div className="flex flex-col items-center lg:items-start"><PenLine className="text-primary" size={20} /><p className="mt-1 text-xl font-extrabold sm:text-2xl">{stats.authors}</p><p className="text-sm text-muted dark:text-darkmuted">Penulis</p></div>
                                 <div className="flex flex-col items-center lg:items-start"><Library className="text-primary" size={20} /><p className="mt-1 text-xl font-extrabold sm:text-2xl">{stats.categories}</p><p className="text-sm text-muted dark:text-darkmuted">Kategori</p></div>
                                 <div className="flex flex-col items-center lg:items-start"><Users className="text-primary" size={20} /><p className="mt-1 text-xl font-extrabold sm:text-2xl">{stats.users}</p><p className="text-sm text-muted dark:text-darkmuted">Pengguna</p></div>
-                                <div className="flex flex-col items-center lg:items-start"><TrendingUp className="text-primary" size={20} /><p className="mt-1 text-xl font-extrabold sm:text-2xl">{stats.readers}</p><p className="text-sm text-muted dark:text-darkmuted">Total Pembaca</p></div>
+                                <div className="flex flex-col items-center lg:items-start"><TrendingUp className="text-primary" size={20} /><p className="mt-1 text-xl font-extrabold sm:text-2xl">{stats.readers}</p><p className="text-sm text-muted dark:text-darkmuted">Total Dilihat</p></div>
                             </motion.div>
                         </div>
                         <motion.div initial={{ opacity: 0, y: 24 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 0.25, duration: 0.6 }} className="relative mx-auto w-full max-w-md px-3 sm:px-6 lg:max-w-none lg:px-2">
