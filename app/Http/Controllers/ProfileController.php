@@ -7,6 +7,7 @@ use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Storage;
+use Illuminate\Support\Str;
 use Illuminate\Validation\Rules\Password;
 use Inertia\Inertia;
 use Inertia\Response;
@@ -24,7 +25,7 @@ class ProfileController extends Controller
         $data = $request->safe()->only(['name', 'email', 'bio', 'phone']);
 
         if ($request->hasFile('avatar')) {
-            if ($user->avatar) {
+            if ($user->avatar && ! Str::startsWith($user->avatar, 'http')) {
                 Storage::disk('public')->delete($user->avatar);
             }
             $data['avatar'] = $request->file('avatar')->store('avatars', 'public');

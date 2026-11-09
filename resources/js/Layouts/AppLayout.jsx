@@ -43,7 +43,10 @@ export default function AppLayout({ children }) {
                         {auth.user && (
                             <>
                                 <Link href={route('favorites.index')} className="font-medium transition hover:text-primary">Favorit</Link>
+                                <Link href={route('wishlist.index')} className="font-medium transition hover:text-primary">Wishlist</Link>
+                                <Link href={route('bookmarks.index')} className="font-medium transition hover:text-primary">Bookmark</Link>
                                 <Link href={route('history.index')} className="font-medium transition hover:text-primary">Riwayat</Link>
+                                {auth.user.role === 'admin' && <Link href={route('admin.moderation')} className="font-medium transition hover:text-primary">Moderasi</Link>}
                                 {auth.user.role === 'admin' && <a href="/admin" className="font-medium text-primary">Admin</a>}
                             </>
                         )}
@@ -55,6 +58,9 @@ export default function AppLayout({ children }) {
                                 <Link href={route('notifications.index')} className="relative rounded-full p-2 transition hover:text-primary" aria-label="Notifikasi">
                                     <Bell size={20} />
                                     {unreadNotifications > 0 && <span className="absolute -right-0.5 -top-0.5 rounded-full bg-primary px-1 text-[10px] font-bold text-white">{unreadNotifications}</span>}
+                                </Link>
+                                <Link href={route('profile.edit')} className="shrink-0" aria-label="Profil saya">
+                                    {auth.user.avatar ? <img src={auth.user.avatar.startsWith('http') ? auth.user.avatar : `/storage/${auth.user.avatar}`} alt={auth.user.name} className="h-9 w-9 rounded-full object-cover" /> : <span className="flex h-9 w-9 items-center justify-center rounded-full bg-primary text-sm font-extrabold uppercase text-white">{auth.user.name.charAt(0)}</span>}
                                 </Link>
                                 <Link href={route('profile.edit')} className="hidden font-semibold transition hover:text-primary sm:block">{auth.user.name}</Link>
                                 <Link href={route('logout')} method="post" as="button" className="btn-secondary !px-3 !py-1.5 text-sm">Keluar</Link>
@@ -98,6 +104,7 @@ export default function AppLayout({ children }) {
                         <Link href={route('profile.edit')} className="mt-2 block text-sm text-gray-400 transition hover:text-primary">Profil</Link>
                         <Link href={route('notifications.index')} className="mt-1 block text-sm text-gray-400 transition hover:text-primary">Notifikasi</Link>
                         <Link href={route('history.index')} className="mt-1 block text-sm text-gray-400 transition hover:text-primary">Riwayat Bacaan</Link>
+                        <Link href={route('notes.index')} className="mt-1 block text-sm text-gray-400 transition hover:text-primary">Catatan Saya</Link>
                     </div>
                 </div>
                 <div className="border-t border-white/10 py-4 text-center text-xs text-gray-500">Ruang Membaca - Perpustakaan Digital</div>

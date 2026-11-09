@@ -11,12 +11,12 @@ class ReviewController extends Controller
 {
     public function store(StoreReviewRequest $request, Book $book): RedirectResponse
     {
-        $request->user()->reviews()->create([
-            'book_id' => $book->id,
-            'body' => $request->string('body')->toString(),
-        ]);
+        $review = $request->user()->reviews()->updateOrCreate(
+            ['book_id' => $book->id],
+            ['body' => $request->string('body')->toString()]
+        );
 
-        return back()->with('success', 'Ulasan terkirim.');
+        return back()->with('success', $review->wasRecentlyCreated ? 'Ulasan terkirim.' : 'Ulasan diperbarui.');
     }
 
     public function destroy(Review $review): RedirectResponse

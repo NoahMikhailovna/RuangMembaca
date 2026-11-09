@@ -7,7 +7,7 @@ use Illuminate\Database\Seeder;
 use Illuminate\Support\Facades\Storage;
 
 /**
- * Mengisi cover_path untuk 4 buku klasik yang sebelumnya hanya
+ * Mengisi cover_path untuk 2 buku klasik yang sebelumnya hanya
  * mendapat PDF dari AttachClassicPdfsSeeder (cover masih kosong
  * sehingga katalog menampilkan placeholder).
  *
@@ -23,8 +23,6 @@ class UpdateClassicCoversSeeder extends Seeder
      * Slug buku klasik => nama file cover di folder covers/.
      */
     private array $covers = [
-        'max-havelaar' => 'classic-max-havelaar.jpg',
-        'habis-gelap-terbitlah-terang' => 'classic-habis-gelap-terbitlah-terang.jpg',
         'azab-dan-sengsara' => 'classic-azab-dan-sengsara.jpg',
         'sengsara-membawa-nikmat' => 'classic-sengsara-membawa-nikmat.jpg',
     ];

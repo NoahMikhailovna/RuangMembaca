@@ -68,7 +68,7 @@ class AuthController extends Controller
 
     public function redirectToGoogle(): SymfonyRedirectResponse
     {
-        return Socialite::driver('google')->redirect();
+        return Socialite::driver('google')->with(['prompt' => 'select_account'])->redirect();
     }
 
     public function handleGoogleCallback(Request $request): RedirectResponse

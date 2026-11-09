@@ -55,6 +55,7 @@ class CatalogController extends Controller
                 'isFavorite' => $user->favorites()->where('book_id', $book->id)->exists(),
                 'isWishlist' => $user->wishlists()->where('book_id', $book->id)->exists(),
                 'myRating' => optional($user->ratings()->where('book_id', $book->id)->first())->score,
+                'myReview' => $user->reviews()->where('book_id', $book->id)->first(['id', 'body']),
                 'progress' => $user->readingProgress()->where('book_id', $book->id)->first(),
             ] : null,
             'related' => Book::published()->with(['author', 'categories'])

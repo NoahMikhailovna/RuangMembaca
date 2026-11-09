@@ -1,12 +1,12 @@
 import { Head, Link, router, useForm, usePage } from '@inertiajs/react';
-import { BookOpen, Bookmark, Download, Heart, MessageCircle, ShoppingBag } from 'lucide-react';
+import { BookOpen, Bookmark, Download, Heart, MessageCircle, ShoppingBag, Trash2 } from 'lucide-react';
 import AppLayout from '../../Layouts/AppLayout';
 import BookCard from '../../Components/BookCard';
 import StarRating from '../../Components/StarRating';
 
 export default function Show({ book, userState, related }) {
     const { auth } = usePage().props;
-    const reviewForm = useForm({ body: '' });
+    const reviewForm = useForm({ body: userState?.myReview?.body || '' });
     const commentForm = useForm({ body: '' });
 
     const post = (name, params) => router.post(route(name, params), {}, { preserveScroll: true });
@@ -32,7 +32,7 @@ export default function Show({ book, userState, related }) {
                         <h1 className="mt-3 text-3xl font-extrabold md:text-4xl">{book.title}</h1>
                         <p className="mt-1 text-lg text-muted dark:text-darkmuted">{book.author?.name} - {book.published_year} - {book.page_count} halaman</p>
                         <div className="mt-3 flex items-center gap-4">
-                            <StarRating book={book} value={userState?.myRating || Math.round(book.ratings_avg_score || 0)} />
+                            <StarRating book={book} value={userState?.myRating || 0} />
                             <span className="font-semibold">{book.ratings_avg_score ? Number(book.ratings_avg_score).toFixed(1) : '-'}/5</span>
                             <span className="text-muted dark:text-darkmuted">{book.reader_count} pembaca - {book.ratings_count} rating</span>
                         </div>
@@ -63,23 +63,33 @@ export default function Show({ book, userState, related }) {
                     </div>
                 </div>
 
-                {auth.user && (
-                    <section className="card mt-10 p-6">
-                        <h2 className="text-xl font-extrabold">Tulis Ulasan</h2>
-                        <form onSubmit={(e) => { e.preventDefault(); reviewForm.post(route('books.reviews.store', book.id), { preserveScroll: true, onSuccess: () => reviewForm.reset() }); }} className="mt-3">
+                <section className="card mt-10 p-6">
+                    <h2 className="text-xl font-extrabold">Ulasan</h2>
+                    {auth.user ? (
+                        <form onSubmit={(e) => { e.preventDefault(); reviewForm.post(route('books.reviews.store', book.id), { preserveScroll: true }); }} className="mt-3">
                             <textarea value={reviewForm.data.body} onChange={(e) => reviewForm.setData('body', e.target.value)} className="input" rows={3} placeholder="Bagikan pendapatmu tentang buku ini..." />
-                            <button className="btn-primary mt-3" disabled={reviewForm.processing}>Kirim Ulasan</button>
+                            <button className="btn-primary mt-3" disabled={reviewForm.processing}>{userState?.myReview ? 'Perbarui Ulasan' : 'Kirim Ulasan'}</button>
                         </form>
-                        <div className="mt-6 space-y-4">
-                            {(book.reviews || []).filter((r) => r.status === 'approved').map((r) => (
-                                <div key={r.id} className="border-b border-line pb-3 dark:border-ink-border">
-                                    <p className="font-semibold">{r.user?.name}</p>
-                                    <p className="text-muted dark:text-darkmuted">{r.body}</p>
+                    ) : (
+                        <p className="mt-3 text-muted dark:text-darkmuted"><Link href={route('login')} className="font-semibold text-primary">Masuk</Link> untuk menulis ulasan tentang buku ini.</p>
+                    )}
+                    <div className="mt-6 space-y-4">
+                        {(book.reviews || []).filter((r) => r.status === 'approved').map((r) => (
+                            <div key={r.id} className="border-b border-line pb-3 dark:border-ink-border">
+                                <div className="flex items-start justify-between gap-3">
+                                    <div>
+                                        <p className="font-semibold">{r.user?.name}</p>
+                                        <p className="text-muted dark:text-darkmuted">{r.body}</p>
+                                    </div>
+                                    {auth.user && r.user_id === auth.user.id && (
+                                        <button onClick={() => router.delete(route('reviews.destroy', r.id), { preserveScroll: true })} className="rounded-full p-2 text-primary transition hover:bg-soft dark:hover:bg-ink-bg" aria-label="Hapus ulasan"><Trash2 size={16} /></button>
+                                    )}
                                 </div>
-                            ))}
-                        </div>
-                    </section>
-                )}
+                            </div>
+                        ))}
+                        {(book.reviews || []).filter((r) => r.status === 'approved').length === 0 && <p className="text-muted dark:text-darkmuted">Belum ada ulasan untuk buku ini.</p>}
+                    </div>
+                </section>
 
                 <section className="card mt-6 p-6">
                     <h2 className="flex items-center gap-2 text-xl font-extrabold"><MessageCircle className="text-primary" /> Diskusi</h2>
@@ -110,16 +120,28 @@ export default function Show({ book, userState, related }) {
 }
 
 function CommentItem({ comment, canReply }) {
+    const { auth } = usePage().props;
     const replyForm = useForm({ body: '' });
+    const deleteButton = (id) => (
+        <button onClick={() => router.delete(route('comments.destroy', id), { preserveScroll: true })} className="rounded-full p-1.5 text-primary transition hover:bg-soft dark:hover:bg-ink-bg" aria-label="Hapus komentar"><Trash2 size={14} /></button>
+    );
     return (
         <div className="border-b border-line pb-4 dark:border-ink-border">
-            <p className="font-semibold">{comment.user?.name}</p>
-            <p className="text-muted dark:text-darkmuted">{comment.body}</p>
+            <div className="flex items-start justify-between gap-3">
+                <div>
+                    <p className="font-semibold">{comment.user?.name}</p>
+                    <p className="text-muted dark:text-darkmuted">{comment.body}</p>
+                </div>
+                {auth.user && comment.user_id === auth.user.id && deleteButton(comment.id)}
+            </div>
             <div className="ml-6 mt-3 space-y-2">
                 {(comment.replies || []).filter((r) => r.status === 'approved').map((r) => (
-                    <div key={r.id}>
-                        <p className="text-sm font-semibold">{r.user?.name}</p>
-                        <p className="text-sm text-muted dark:text-darkmuted">{r.body}</p>
+                    <div key={r.id} className="flex items-start justify-between gap-3">
+                        <div>
+                            <p className="text-sm font-semibold">{r.user?.name}</p>
+                            <p className="text-sm text-muted dark:text-darkmuted">{r.body}</p>
+                        </div>
+                        {auth.user && r.user_id === auth.user.id && deleteButton(r.id)}
                     </div>
                 ))}
                 {canReply && (

@@ -17,7 +17,7 @@ export default function Bookmarks({ bookmarks }) {
                     <div className="mt-8 space-y-3">
                         {bookmarks.map((b) => (
                             <div key={b.id} className="card flex items-center justify-between p-4">
-                                <Link href={route('reader.show', b.book.slug)} className="flex items-center gap-3">
+                                <Link href={route('reader.show', { book: b.book.slug, page: b.page })} className="flex items-center gap-3">
                                     <Bookmark className="text-primary" />
                                     <span><span className="font-bold">{b.book.title}</span><span className="block text-sm text-muted dark:text-darkmuted">Halaman {b.page}{b.label ? ` - ${b.label}` : ''}</span></span>
                                 </Link>

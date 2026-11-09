@@ -26,6 +26,9 @@ function ModerationList({ title, items, routeName }) {
 }
 
 export default function Moderation({ comments, reviews, stats }) {
+    const activity = stats.readingActivity || [];
+    const maxActivity = activity.reduce((max, a) => Math.max(max, a.total), 0);
+
     return (
         <AppLayout>
             <Head title="Moderasi" />
@@ -40,6 +43,31 @@ export default function Moderation({ comments, reviews, stats }) {
                         </div>
                     ))}
                 </div>
+                <section className="card mt-8 p-6">
+                    <h2 className="text-xl font-extrabold">Aktivitas Membaca (30 Hari Terakhir)</h2>
+                    {activity.length === 0 ? <p className="mt-4 text-muted dark:text-darkmuted">Belum ada aktivitas membaca tercatat.</p> : (
+                        <>
+                            <div className="mt-6 flex h-40 items-end gap-1">
+                                {activity.map((a) => (
+                                    <div
+                                        key={a.date}
+                                        className="flex-1 rounded-t bg-primary"
+                                        style={{ height: `${maxActivity > 0 ? Math.max(4, (a.total / maxActivity) * 100) : 0}%` }}
+                                        title={`${a.date}: ${a.total} aktivitas`}
+                                    />
+                                ))}
+                            </div>
+                            <div className="mt-3 space-y-1 border-t border-line pt-3 dark:border-ink-border">
+                                {activity.slice(-5).reverse().map((a) => (
+                                    <p key={a.date} className="flex justify-between text-sm text-muted dark:text-darkmuted">
+                                        <span>{new Date(`${a.date}T00:00:00`).toLocaleDateString('id-ID', { day: 'numeric', month: 'short', year: 'numeric' })}</span>
+                                        <span className="font-semibold text-black dark:text-white">{a.total} aktivitas</span>
+                                    </p>
+                                ))}
+                            </div>
+                        </>
+                    )}
+                </section>
                 <ModerationList title="Komentar" items={comments} routeName="admin.moderation.comment" />
                 <ModerationList title="Ulasan" items={reviews} routeName="admin.moderation.review" />
             </div>

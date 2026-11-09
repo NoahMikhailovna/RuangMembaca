@@ -21,12 +21,13 @@ class PersonalNoteController extends Controller
 
     public function store(StorePersonalNoteRequest $request, Book $book): RedirectResponse
     {
-        $request->user()->personalNotes()->create([
-            'book_id' => $book->id,
-            'page' => $request->input('page'),
-            'title' => $request->input('title'),
-            'body' => $request->string('body')->toString(),
-        ]);
+        $request->user()->personalNotes()->updateOrCreate(
+            ['book_id' => $book->id, 'page' => $request->input('page')],
+            [
+                'title' => $request->input('title'),
+                'body' => $request->string('body')->toString(),
+            ]
+        );
 
         return back()->with('success', 'Catatan tersimpan.');
     }

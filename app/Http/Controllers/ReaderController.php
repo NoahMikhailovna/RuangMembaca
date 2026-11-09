@@ -27,10 +27,19 @@ class ReaderController extends Controller
             'read_at' => now(),
         ]);
 
+        $startPage = null;
+        if ($request->has('page')) {
+            $requested = $request->integer('page');
+            $maxPage = $book->page_count ?: $progress->total_pages;
+            $startPage = $maxPage > 0 ? max(1, min($requested, $maxPage)) : max(1, $requested);
+        }
+
         return Inertia::render('Reader/Show', [
             'book' => $book->load('author'),
             'progress' => $progress,
+            'startPage' => $startPage,
             'bookmarks' => $request->user()->bookmarks()->where('book_id', $book->id)->orderBy('page')->get(),
+            'notes' => $request->user()->personalNotes()->where('book_id', $book->id)->orderBy('page')->get(['id', 'page', 'title', 'body', 'updated_at']),
             'pdfUrl' => $book->pdf_path ? route('books.pdf', $book) : null,
         ]);
     }

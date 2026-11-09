@@ -13,12 +13,12 @@ class ReadingProgressController extends Controller
 {
     public function history(Request $request): Response
     {
-        $progress = $request->user()->readingProgress()->with('book.author')->orderByDesc('last_read_at')->get();
+        $progress = $request->user()->readingProgress()->with('book.author')->whereHas('book')->orderByDesc('last_read_at')->get();
 
         return Inertia::render('Library/History', [
-            'currentlyReading' => $progress->where('is_finished', false),
-            'finished' => $progress->where('is_finished', true),
-            'histories' => $request->user()->readingHistories()->with('book.author')->latest('read_at')->limit(50)->get(),
+            'currentlyReading' => $progress->where('is_finished', false)->values(),
+            'finished' => $progress->where('is_finished', true)->values(),
+            'histories' => $request->user()->readingHistories()->with('book.author')->whereHas('book')->latest('read_at')->limit(10)->get(),
         ]);
     }
 

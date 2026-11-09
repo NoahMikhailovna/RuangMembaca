@@ -44,18 +44,12 @@ class DatabaseSeeder extends Seeder
                 return [$name => $category];
             });
 
-        $multatuli = Author::updateOrCreate(['slug' => 'multatuli'], ['name' => 'Multatuli', 'bio' => 'Nama pena Eduard Douwes Dekker, penulis Max Havelaar (1860).', 'birth_year' => 1820]);
         $marahRusli = Author::updateOrCreate(['slug' => 'marah-rusli'], ['name' => 'Marah Rusli', 'bio' => 'Sastrawan Indonesia, penulis Sitti Nurbaya (1922).', 'birth_year' => 1889]);
         $abdulMuis = Author::updateOrCreate(['slug' => 'abdul-muis'], ['name' => 'Abdul Muis', 'bio' => 'Sastrawan dan pahlawan nasional, penulis Salah Asuhan (1928).', 'birth_year' => 1883]);
         $stAlisjahbana = Author::updateOrCreate(['slug' => 'sutan-takdir-alisjahbana'], ['name' => 'Sutan Takdir Alisjahbana', 'bio' => 'Sastrawan Indonesia, penulis Layar Terkembang (1936).', 'birth_year' => 1908]);
         $timRuangMembaca = Author::updateOrCreate(['slug' => 'tim-ruang-membaca'], ['name' => 'Tim Ruang Membaca', 'bio' => 'Penulis contoh orisinal Ruang Membaca.']);
 
         $books = [
-            [
-                'author' => $multatuli, 'title' => 'Max Havelaar', 'year' => 1860, 'pages' => 400,
-                'cats' => ['Sastra Klasik', 'Sejarah'],
-                'synopsis' => 'Novel klasik domain publik (1860) tentang ketidakadilan kolonial di Lebak, Banten. File PDF belum disertakan; admin dapat mengunggah PDF domain publik melalui Filament.',
-            ],
             [
                 'author' => $marahRusli, 'title' => 'Sitti Nurbaya', 'year' => 1922, 'pages' => 320,
                 'cats' => ['Sastra Klasik', 'Fiksi'],
@@ -94,7 +88,7 @@ class DatabaseSeeder extends Seeder
                     'page_count' => $data['pages'],
                     'language' => 'id',
                     'status' => 'published',
-                    'is_featured' => in_array($data['title'], ['Max Havelaar', 'Sitti Nurbaya'], true),
+                    'is_featured' => in_array($data['title'], ['Sitti Nurbaya'], true),
                     'pdf_path' => null,
                     'cover_path' => null,
                 ]
